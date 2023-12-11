@@ -1,0 +1,7 @@
+{
+  "name": "ASMS",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
