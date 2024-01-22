@@ -18,6 +18,7 @@ export class CircularesPage implements OnInit {
   hijos: any[] = [];
   codigoHijos: any[] = [];
   page: number = 0;
+  scroll: boolean = false;
 
   constructor(private asmsSrvc: AsmsServiceService, private strg: Storage, private modalCtrl: ModalController) { }
 
@@ -54,10 +55,13 @@ export class CircularesPage implements OnInit {
   }
 
   async onIonInfinite(ev: any) {
+    console.log(ev);
     this.page = this.page + 1;
     (await this.asmsSrvc.getCircularesPadre(this.codigoHijos, this.codigoPadre, this.page)).subscribe((circulares: any) => {
       if (Object.prototype.toString.call(circulares) === '[object Array]') {
         this.circulares.push(...circulares);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

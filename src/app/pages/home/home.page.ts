@@ -9,19 +9,24 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class HomePage implements OnInit {
 
-  datosUsuario: any;
-
   constructor( private strg: Storage, private navCtrl: NavController ) { }
 
-  async ngOnInit() {
-    this.datosUsuario = await this.strg.get('datos');
-      if (this.datosUsuario.tipo_usuario == '1' || this.datosUsuario.tipo_usuario == '2') {
-        this.navCtrl.navigateRoot('/grados');
-      } else if (this.datosUsuario.tipo_usuario == '3') {
-        this.navCtrl.navigateRoot('/tab');
+  ngOnInit() {
+    this.strg.create();
+    setTimeout(async () => {
+      const datosUsuario = await this.strg.get('datos');
+      if ( datosUsuario ){
+        if (datosUsuario.tipo_usuario == '1' || datosUsuario.tipo_usuario == '2') {
+          this.navCtrl.navigateRoot('/grados');
+        } else if (datosUsuario.tipo_usuario == '3') {
+          this.navCtrl.navigateRoot('/tab');
+        } else if (datosUsuario.tipo_usuario == '10') {
+          this.navCtrl.navigateRoot('/tab-hijos');
+        }
       } else {
-        this.navCtrl.navigateRoot('/tab-hijos');
-      }
+          this.navCtrl.navigateRoot('/login');
+        }
+    }, 3000);
   }
 
 }

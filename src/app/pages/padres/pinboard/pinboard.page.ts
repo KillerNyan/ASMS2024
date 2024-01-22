@@ -19,6 +19,7 @@ export class PinboardPage implements OnInit {
   codigosHijos: any[] = [];
   page: number = 0;
   filtroPos: number = 0;
+  scroll: boolean = false;
 
   constructor( private asmsSrvc: AsmsServiceService, private strg: Storage, private modalCtrl: ModalController ) { }
 
@@ -49,12 +50,14 @@ export class PinboardPage implements OnInit {
       (await this.asmsSrvc.getPinboardPadre(this.codigosHijos, this.page)).subscribe((postits: any) => {
         if(Object.prototype.toString.call(postits) === '[object Array]'){
           this.postits = postits;
+          this.scroll = false;
         }
       });
     } else {
       (await this.asmsSrvc.getPinboardPadre(this.hijos[pos-1].cui, this.page)).subscribe((postits: any) => {
         if(Object.prototype.toString.call(postits) === '[object Array]'){
           this.postits = postits;
+          this.scroll = false;
         }
       });
     }
@@ -78,6 +81,8 @@ export class PinboardPage implements OnInit {
       (await this.asmsSrvc.getPinboardPadre(this.codigosHijos, this.page)).subscribe((postits: any) => {
         if (Object.prototype.toString.call(postits) === '[object Array]'){
           this.postits.push(...postits);
+        } else {
+          this.scroll = true;
         }
         (ev).target.complete();
       });
@@ -85,6 +90,8 @@ export class PinboardPage implements OnInit {
       (await this.asmsSrvc.getPinboardPadre(this.hijos[pos-1].cui, this.page)).subscribe((postits: any) => {
         if (Object.prototype.toString.call(postits) === '[object Array]'){
           this.postits.push(...postits);
+        } else {
+          this.scroll = true;
         }
         (ev).target.complete();
       });

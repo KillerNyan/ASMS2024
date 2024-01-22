@@ -23,6 +23,7 @@ export class NotificacionesPage implements OnInit {
   alumno: string = '';
   page: number = 0;
   tipoNotificacion: string = '';
+  scroll: boolean = false;
 
   constructor(private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private strg: Storage) { }
 
@@ -95,6 +96,8 @@ export class NotificacionesPage implements OnInit {
     (await this.asmsSrvc.getNotificaciones(this.codigo, this.tipo, this.alumno, this.page)).subscribe((notificaciones: any) => {
       if (Object.prototype.toString.call(notificaciones) === '[object Array]') {
         this.notificaciones.push(...notificaciones);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

@@ -21,6 +21,7 @@ export class PostitPage implements OnInit {
   @Input() grado: string = '';
   @Input() seccion: string = '';
   @Input() nivel: string = '';
+  scroll: boolean = false;
 
   constructor(private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService, private strg: Storage) { }
 
@@ -118,6 +119,7 @@ export class PostitPage implements OnInit {
       (await this.asmsSrvc.getPostit(this.codigoMaestro, this.grado, this.nivel, this.seccion, this.page)).subscribe((postits: any) => {
         if (Object.prototype.toString.call(postits) === '[object Array]') {
           this.postits = postits;
+          console.log(postits);
         }
       });
     }
@@ -147,6 +149,8 @@ export class PostitPage implements OnInit {
     (await this.asmsSrvc.getPostit(this.codigoMaestro, this.grado, this.nivel, this.seccion, this.page)).subscribe((postits: any) => {
       if (Object.prototype.toString.call(postits) === '[object Array]') {
         this.postits.push(...postits);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

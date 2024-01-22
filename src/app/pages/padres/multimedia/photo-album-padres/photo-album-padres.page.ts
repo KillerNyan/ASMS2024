@@ -21,6 +21,7 @@ export class PhotoAlbumPadresPage implements OnInit {
   page: number = 0;
   photoAlbums: any[] = [];
   photos: any[] = [];
+  scroll: boolean = false;
 
   constructor( private strg: Storage, private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService ) { }
 
@@ -51,6 +52,8 @@ export class PhotoAlbumPadresPage implements OnInit {
     (await this.asmsSrvc.getPhotoAlbumPadre(this.tipoUsu, this.codigoUsu, this.page)).subscribe((albums: any) => {
       if (Object.prototype.toString.call(albums) === '[object Array]') {
         this.photoAlbums.push(...albums);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

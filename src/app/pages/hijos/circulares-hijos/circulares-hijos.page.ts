@@ -16,6 +16,7 @@ export class CircularesHijosPage implements OnInit {
   codigoAlu: string = '';
   autorizador: number = 0;
   page: number = 0;
+  scroll: boolean = false;
 
   constructor(private asmsSrvc: AsmsServiceService, private strg: Storage, private modalCtrl: ModalController) { }
 
@@ -47,6 +48,8 @@ export class CircularesHijosPage implements OnInit {
     (await this.asmsSrvc.getCircularesAlumnos(this.codigoAlu, this.autorizador, this.page)).subscribe((circulares: any) => {
       if (Object.prototype.toString.call(circulares) === '[object Array]') {
         this.circulares.push(...circulares);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

@@ -183,7 +183,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/hijos/actividades-hijos/actividades-hijos.module').then( m => m.ActividadesHijosPageModule)
   },
   {
-    canActivate: [GuardGuard],
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },

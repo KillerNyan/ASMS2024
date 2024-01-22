@@ -12,15 +12,19 @@
         <img src="{{notificacion.url_logo}}">
       </ion-avatar>
     </ion-col>
-    <label class="{{notificacion.clase}}">
-      <p style="margin-bottom: -9px;"> {{notificacion.created_at}} </p>
-      <p style="margin-bottom: -9px;"> {{notificacion.message}} </p>
-      <p> {{notificacion.categoria}} </p>
-    </label>
-    <ion-icon name="arrow-forward" slot="end"></ion-icon>
+    <ion-col size="9">
+      <label class="{{notificacion.clase}}">
+        <p style="margin-bottom: -9px;"> {{notificacion.created_at}} </p>
+        <p style="margin-bottom: -9px;"> {{notificacion.message}} </p>
+        <p> {{notificacion.categoria}} </p>
+      </label>
+    </ion-col>
+    <ion-col size="1">
+      <ion-icon name="arrow-forward" size="large"></ion-icon>
+    </ion-col>
   </ion-item>
 
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" disabled="{{ scroll }}">
     <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   

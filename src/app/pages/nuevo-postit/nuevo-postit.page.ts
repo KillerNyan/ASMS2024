@@ -101,6 +101,11 @@ export class NuevoPostitPage implements OnInit {
             (await this.asmsSrvc.nuevoPostit(this.data)).subscribe(async (resp: any) => {
               let codigo = resp.codigo;
               //console.log('Inicia subida de Archivos');
+              const loading = await this.loadingCtrl.create({
+                message: 'Creando Post It',
+                duration: 1000,
+              });
+              loading.present();
               for( let i = 0; i < this.postitFiles.length; i++ ){
                 let file = this.postitFiles[i];
                 let extension = file[1];
@@ -115,13 +120,10 @@ export class NuevoPostitPage implements OnInit {
                   });
                 }
               }
-              const loading = await this.loadingCtrl.create({
-                message: 'Creando Post It',
-                duration: 1000,
-              });
-              loading.present();
               this.presentToast(resp.message, 'light');
-              this.modalCtrl.dismiss( null, 'confirm' );
+              setTimeout(() => {
+                this.modalCtrl.dismiss( null, 'confirm' );
+              }, 1000 * this.postitFiles.length);
             });
           } else {
             this.confirmAlert();
@@ -177,7 +179,9 @@ export class NuevoPostitPage implements OnInit {
             });
             loading.present();
             this.presentToast(resp.message, 'light');
-            this.modalCtrl.dismiss( null, 'confirm' );
+            setTimeout(() => {
+              this.modalCtrl.dismiss( null, 'confirm' );
+            }, 1000);
           });
         },
       }],

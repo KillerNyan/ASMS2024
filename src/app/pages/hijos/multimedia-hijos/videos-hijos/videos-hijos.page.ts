@@ -15,6 +15,7 @@ export class VideosHijosPage implements OnInit {
   categoria: string = '';
   orden: number = 0;
   page: number = 0;
+  scroll: boolean = false;
 
   constructor(private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService) { }
 
@@ -32,6 +33,7 @@ export class VideosHijosPage implements OnInit {
     (await this.asmsSrvc.getVideosPadre(this.tipo, this.categoria, this.orden, this.page)).subscribe((videos: any) => {
       if(Object.prototype.toString.call(videos) === '[object Array]'){
         this.videos = videos;
+        this.scroll = false;
       }
     });
   }
@@ -42,6 +44,7 @@ export class VideosHijosPage implements OnInit {
     (await this.asmsSrvc.getVideosPadre(this.tipo, this.categoria, this.orden, this.page)).subscribe((videos: any) => {
       if(Object.prototype.toString.call(videos) === '[object Array]'){ 
         this.videos = videos;
+        this.scroll = false;
       }
     })
   }
@@ -66,6 +69,8 @@ export class VideosHijosPage implements OnInit {
     (await this.asmsSrvc.getVideosPadre(this.tipo, this.categoria, this.orden, this.page)).subscribe((videos: any) => {
       if (Object.prototype.toString.call(videos) === '[object Array]') {
         this.videos.push(...videos);
+      } else {
+        this.scroll = true;
       }
       (ev).target.complete();
     });

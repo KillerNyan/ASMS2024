@@ -86,18 +86,20 @@ export class NuevoPhotoAlbumPage implements OnInit {
           this.data = [{ maestro: this.codigoMaestro, descripcion: this.descripcion, alumno: this.seleccionados.join() }];
           (await this.asmsSrvc.nuevoPhotoAlbum(this.data)).subscribe(async (resp: any) => {
             let codigo = resp.album;
+            const loading = await this.loadingCtrl.create({
+              message: 'Creando Photo Album',
+              duration: 1000,
+            });
+            loading.present();
             for (let i = 0; i < this.photoFiles.length; i++) {
               let file = this.photoFiles[i];
               (await this.asmsSrvc.ImgsPhotoAlbum(codigo, file[0])).subscribe(async () => {
-                const loading = await this.loadingCtrl.create({
-                  message: 'Creando Photo Album',
-                  duration: 1000,
-                });
-                loading.present();
               });
             }
             this.presentToast(resp.message, 'light');
-            this.modalCtrl.dismiss( null, 'confirm' );
+            setTimeout(() => {
+              this.modalCtrl.dismiss( null, 'confirm' );
+            }, 1000 * this.photoFiles.length);
           });
         } else {
           const alert = await this.alertCtrl.create({
