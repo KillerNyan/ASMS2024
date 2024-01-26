@@ -4,7 +4,7 @@ android {
     namespace "com.farasi.asms"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.farasi.asms"
+        applicationId 'com.farasi.asms'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -97,7 +97,7 @@ export class DetallePostitPage implements OnInit {
     (await this.asmsSrvc.ModificarPostit(this.data)).subscribe(async (resp: any) => {
       const loading = await this.loadingCtrl.create({
         message: 'Modificando Post It',
-        duration: 1000,
+        duration: 500 + (700 * this.postitFiles.length),
       });
       loading.present();
       for (let i = 0; i < this.postitFiles.length; i++) {
@@ -111,10 +111,10 @@ export class DetallePostitPage implements OnInit {
           });
         }
       }
-      this.presentToast(resp.message, 'light');
       setTimeout(() => {
         this.modalCtrl.dismiss(null, 'confirm');
-      }, 500 + (1000 * this.postitFiles.length));
+        this.presentToast(resp.message, 'light');
+      }, 500 + (700 * this.postitFiles.length));
     })
   }
 

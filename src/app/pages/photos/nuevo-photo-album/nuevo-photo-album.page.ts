@@ -88,7 +88,7 @@ export class NuevoPhotoAlbumPage implements OnInit {
             let codigo = resp.album;
             const loading = await this.loadingCtrl.create({
               message: 'Creando Photo Album',
-              duration: 1000,
+              duration: 500 + (700 * this.photoFiles.length),
             });
             loading.present();
             for (let i = 0; i < this.photoFiles.length; i++) {
@@ -96,10 +96,10 @@ export class NuevoPhotoAlbumPage implements OnInit {
               (await this.asmsSrvc.ImgsPhotoAlbum(codigo, file[0])).subscribe(async () => {
               });
             }
-            this.presentToast(resp.message, 'light');
             setTimeout(() => {
               this.modalCtrl.dismiss( null, 'confirm' );
-            }, 1000 * this.photoFiles.length);
+              this.presentToast(resp.message, 'light');
+            }, 700 * this.photoFiles.length);
           });
         } else {
           const alert = await this.alertCtrl.create({

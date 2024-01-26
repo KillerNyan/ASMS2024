@@ -103,7 +103,7 @@ export class NuevoPostitPage implements OnInit {
               //console.log('Inicia subida de Archivos');
               const loading = await this.loadingCtrl.create({
                 message: 'Creando Post It',
-                duration: 1000,
+                duration: 500 + (700 * this.postitFiles.length),
               });
               loading.present();
               for( let i = 0; i < this.postitFiles.length; i++ ){
@@ -120,10 +120,10 @@ export class NuevoPostitPage implements OnInit {
                   });
                 }
               }
-              this.presentToast(resp.message, 'light');
               setTimeout(() => {
                 this.modalCtrl.dismiss( null, 'confirm' );
-              }, 1000 * this.postitFiles.length);
+                this.presentToast(resp.message, 'light');
+              }, 700 * this.postitFiles.length);
             });
           } else {
             this.confirmAlert();
