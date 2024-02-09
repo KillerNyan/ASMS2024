@@ -185,7 +185,15 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'chat',
+    loadChildren: () => import('./pages/padres/chat/chat.module').then( m => m.ChatPageModule)
   },
+  {
+    path: 'chats-maestros',
+    loadChildren: () => import('./pages/chats-maestros/chats-maestros.module').then( m => m.ChatsMaestrosPageModule)
+  },
+
 
 
 

@@ -47,7 +47,7 @@
     text-align: left;
   }
 
-  ion-modal.width-height {
+  /* ion-modal.width-height {
     --border-radius: 8px 30px 30px 30px;
     align-items: center !important;
     --height: 40% !important;
@@ -60,15 +60,7 @@
         --height: 45% !important;
         --width: 90% !important;
     }
-  }
-
-  .transparent-modal {
-    --backgroun: rgba(44, 39, 45, 0.2);
-
-    &::part(content) {
-      backdrop-filter: blur(12px);
-    }
-  }
+  } */
 
   button.alert-button.alert-button-confirm {
     color: red;

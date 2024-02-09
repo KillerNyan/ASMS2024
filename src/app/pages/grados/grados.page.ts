@@ -10,6 +10,7 @@ import { CircularesPage } from '../circulares/circulares.page';
 import { PhotosPage } from '../photos/photos.page';
 import { ReportesPage } from '../reportes/reportes.page';
 import { SoportePage } from '../soporte/soporte.page';
+import { ChatsMaestrosPage } from '../chats-maestros/chats-maestros.page';
 
 @Component({
   selector: 'app-grados',
@@ -24,6 +25,8 @@ export class GradosPage implements OnInit {
   secciones: any[] = [];
   imagenes: any[] = [];
   logo: string = '';
+  imgAlumnos: string = '';
+  
 
   constructor(private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private storage: Storage, private navCtrl: NavController) { }
 
@@ -31,15 +34,17 @@ export class GradosPage implements OnInit {
     this.datosUsuario = await this.storage.get('datos');
     this.nombre = this.datosUsuario.nombre;
     this.foto = this.datosUsuario.url_foto;
+    console.log(this.datosUsuario);
     (await this.asmsSrvc.getSecciones()).subscribe((secciones: any) => {
       if(Object.prototype.toString.call(secciones) === '[object Array]'){
-        console.log(secciones);
+        //console.log(secciones);
         this.secciones = secciones;
       }
     });
     (await this.asmsSrvc.getImagenes()).subscribe((imagenes: any) => {
       this.imagenes = imagenes;
       this.logo = imagenes.data.logo;
+      this.imgAlumnos = imagenes.data.alumnos;
     });
   }
 
@@ -74,42 +79,42 @@ export class GradosPage implements OnInit {
   async verTareas() {
     const pagina = await this.modalCtrl.create({
       component: TareasPage,
-    })
+    });
     await pagina.present();
   }
 
   async verPostit() {
     const pagina = await this.modalCtrl.create({
       component: PostSecPage,
-    })
+    });
     await pagina.present();
   }
 
   async verCalificaciones() {
     const pagina = await this.modalCtrl.create({
       component: CalificacionesPage,
-    })
+    });
     await pagina.present();
   }
 
   async verCirculares() {
     const pagina = await this.modalCtrl.create({
       component: CircularesPage,
-    })
+    });
     await pagina.present();
   }
 
   async verPhotoAlbum() {
     const pagina = await this.modalCtrl.create({
       component: PhotosPage,
-    })
+    });
     await pagina.present();
   }
 
   async verReportes() {
     const pagina = await this.modalCtrl.create({
       component: ReportesPage,
-    })
+    });
     await pagina.present();
   }
 
@@ -122,7 +127,17 @@ export class GradosPage implements OnInit {
         name,
         logo
       }
-    })
+    });
+    await pagina.present();
+  }
+
+  async verChats(){
+    const pagina = await this.modalCtrl.create({
+      component: ChatsMaestrosPage,
+      componentProps: {
+        
+      }
+    });
     await pagina.present();
   }
 

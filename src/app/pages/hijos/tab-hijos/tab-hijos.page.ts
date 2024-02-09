@@ -29,6 +29,7 @@ export class TabHijosPage implements OnInit {
     this.nombre = this.datosUsuario.nombre;
     this.foto = this.datosUsuario.url_foto;
     this.codigoAlumno = this.datosUsuario.tipo_codigo;
+    console.log(this.datosUsuario);
     (await this.asmsSrvc.getImagenes()).subscribe((imagenes: any) => {
       this.imagenes = imagenes;
       this.logo = imagenes.data.logo;

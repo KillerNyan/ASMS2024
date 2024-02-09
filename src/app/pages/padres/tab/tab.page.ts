@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { PagosHijosPage } from '../pagos-hijos/pagos-hijos.page';
 import { TareasHijosPage } from '../tareas-hijos/tareas-hijos.page';
 import { SoportePage } from '../../soporte/soporte.page';
+import { ChatPage } from '../chat/chat.page';
 
 @Component({
   selector: 'app-tab',
@@ -89,6 +90,16 @@ export class TabPage implements OnInit {
       componentProps: {
         name,
         logo
+      }
+    });
+    await pagina.present();
+  }
+
+  async verChats(){
+    const pagina = await this.modalCtrl.create({
+      component: ChatPage,
+      componentProps: {
+        
       }
     });
     await pagina.present();

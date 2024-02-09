@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button (click)="cerrar()" slot="start">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>Atrás
+    </ion-button>
+
+    <ion-title>Chats</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-text-center ion-padding-top">
+    <ion-button (click)="nuevoChat()">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+      NUEVO CHAT
+    </ion-button>
+  </div>
+
+  <div *ngFor="let chat of chats; let i = index">
+    <ion-item (click)="verChat(i)">
+      <ion-col size="2">
+        <ion-avatar item-start>
+          <img src="{{ chat.url_foto }}" style="width: 80%;">
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="6">
+        <label>
+          <p style="margin-bottom: -9px;"><b> {{ chat.nombre_otro_usuario }} </b></p>
+          <p class="ultimoMensaje"> {{ chat.ultimo_mensaje }} </p>
+        </label>
+      </ion-col>
+      <ion-col size="3">
+        <label>
+          <p style="margin-top: -5px;"> {{ chat.fecha_ultimo_mensaje }} </p>
+        </label>
+      </ion-col>
+      <ion-col size="1">
+        <ion-icon name="arrow-forward" size="large"></ion-icon>
+      </ion-col>
+    </ion-item>
+  </div>
+
+</ion-content>
