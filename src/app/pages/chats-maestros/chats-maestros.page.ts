@@ -43,7 +43,7 @@ export class ChatsMaestrosPage implements OnInit {
     });
     await pagina.present();
 
-    const { data, role } = await pagina.onWillDismiss();
+    const { data, role } = await pagina.onDidDismiss();
     console.log(role);
     if (role === 'confirm') {
       (await this.asmsSrvc.getChatsPadres(this.codigo, this.tipoUsu)).subscribe((chats: any) => {
@@ -69,7 +69,7 @@ export class ChatsMaestrosPage implements OnInit {
     });
     await pagina.present();
 
-    const { data, role } = await pagina.onWillDismiss();
+    const { data, role } = await pagina.onDidDismiss();
     console.log(role);
     if (role === 'confirm') {
       (await this.asmsSrvc.getChatsPadres(this.codigo, this.tipoUsu)).subscribe((chats: any) => {

@@ -13,7 +13,7 @@
 <ion-content>
   
   <ion-card *ngFor="let seccion of secciones; let i = index" style="background-image: url({{imgChat}});" (click)="verPadres(i)">
-    <ion-card-title color="light"> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </ion-card-title>
+    <p class="letra"><b> {{ seccion.grado_descripcion }} Sección: {{ seccion.seccion_descripcion }} </b></p>
   </ion-card>
   
 </ion-content>

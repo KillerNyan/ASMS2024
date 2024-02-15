@@ -15,7 +15,6 @@ export class ChatPage implements OnInit {
   datosUsuario: any;
   codigo: string = '';
   tipoUsu: string = '';
-  codigoUsu: string = '';
   chats: any[] = [];
 
   constructor( private modalCtrl: ModalController, private strg: Storage, private asmsSrvc: AsmsServiceService ) { }
@@ -24,7 +23,6 @@ export class ChatPage implements OnInit {
     this.datosUsuario = await this.strg.get('datos');
     this.codigo = this.datosUsuario.tipo_codigo;
     this.tipoUsu = this.datosUsuario.tipo_usuario;
-    this.codigoUsu = this.datosUsuario.codigo;
     (await this.asmsSrvc.getChatsPadres(this.codigo, this.tipoUsu)).subscribe((chats: any) => {
       if(Object.prototype.toString.call(chats) === '[object Array]'){
         this.chats = chats;
@@ -43,7 +41,7 @@ export class ChatPage implements OnInit {
     });
     await pagina.present();
 
-    const { data, role } = await pagina.onWillDismiss();
+    const { data, role } = await pagina.onDidDismiss();
     console.log(role);
     if (role === 'confirm') {
       (await this.asmsSrvc.getChatsPadres(this.codigo, this.tipoUsu)).subscribe((chats: any) => {
@@ -59,19 +57,17 @@ export class ChatPage implements OnInit {
     const maestro = this.chats[pos].nombre_otro_usuario;
     const chat = this.chats[pos].dialogo;
     const codigo = this.codigo;
-    const codigoUsu = this.codigoUsu
     const pagina = await this.modalCtrl.create({
       component: MensajesChatPage,
       componentProps: {
         maestro,
         chat,
         codigo,
-        codigoUsu,
       }
     });
     await pagina.present();
 
-    const { data, role } = await pagina.onWillDismiss();
+    const { data, role } = await pagina.onDidDismiss();
     console.log(role);
     if (role === 'confirm') {
       (await this.asmsSrvc.getChatsPadres(this.codigo, this.tipoUsu)).subscribe((chats: any) => {

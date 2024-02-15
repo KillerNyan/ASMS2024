@@ -193,6 +193,10 @@ const routes: Routes = [
     path: 'chats-maestros',
     loadChildren: () => import('./pages/chats-maestros/chats-maestros.module').then( m => m.ChatsMaestrosPageModule)
   },
+  {
+    path: 'clases-reportes',
+    loadChildren: () => import('./pages/padres/clases-reportes/clases-reportes.module').then( m => m.ClasesReportesPageModule)
+  },
 
 
 

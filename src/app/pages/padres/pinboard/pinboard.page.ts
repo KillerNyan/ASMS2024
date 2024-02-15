@@ -38,9 +38,20 @@ export class PinboardPage implements OnInit {
           if(Object.prototype.toString.call(postits) === '[object Array]'){
             this.postits = postits;
           }
-        })
+        });
       }
     });
+  }
+
+  recarga(event: any) {
+    setTimeout(async () => {
+      (await this.asmsSrvc.getPinboardPadre(this.codigosHijos, this.page)).subscribe((postits: any) => {
+        if(Object.prototype.toString.call(postits) === '[object Array]'){
+          this.postits = postits;
+        }
+      });
+      event.target.complete();
+    }, 2000);
   }
 
   async filtro(pos: number){

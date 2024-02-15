@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
@@ -10,6 +10,9 @@ import { AsmsServiceService } from 'src/app/services/asms-service.service';
 })
 export class MensajesChatPage implements OnInit {
 
+  @ViewChild('chatContainer')
+  private chatContainer!: ElementRef;
+
   datosUsuario: any;
   codigoP: string = '';
   tipoUsuP: string = '';
@@ -19,10 +22,10 @@ export class MensajesChatPage implements OnInit {
   @Input() maestro: string = '';
   @Input() chat: string = '';
   @Input() codigo: string = '';
-  @Input() codigoUsu: string = '';
   @Input() codigoMD: string = '';
   @Input() tipoUsuMD: string = '';
   mensajes: any[] = [];
+  viewEntered: any;
 
   constructor( private modalCtrl: ModalController, private strg: Storage, private asmsSrvc: AsmsServiceService ) { }
 
@@ -44,6 +47,20 @@ export class MensajesChatPage implements OnInit {
     }
   }
 
+  scrollToBottom(): void {
+    const scrollElement = this.chatContainer.nativeElement;
+    scrollElement.scrollTop = scrollElement.scrollHeight;
+  }
+
+  ionViewDidEnter() {
+    this.viewEntered = true;
+    this.scrollToBottom();
+  }
+
+  ionViewWillLeave(){
+    this.viewEntered = false;
+  }
+
   async enviarMessage() {
     if(this.chat != ''){
       console.log( this.chat, this.codigoP, this.tipoUsuP, this.message);
@@ -53,6 +70,9 @@ export class MensajesChatPage implements OnInit {
         (await this.asmsSrvc.getMensajesChatsPadres(this.codigo, this.chat)).subscribe((mensajes: any) => {
           if(Object.prototype.toString.call(mensajes) === '[object Array]'){
             this.mensajes = mensajes;
+            setTimeout(() => {
+              this.scrollToBottom();
+            }, 300);
             console.log(mensajes);
           }
         });
@@ -67,6 +87,9 @@ export class MensajesChatPage implements OnInit {
         (await this.asmsSrvc.getMensajesChatsPadres(this.codigo, this.chat)).subscribe((mensajes: any) => {
           if(Object.prototype.toString.call(mensajes) === '[object Array]'){
             this.mensajes = mensajes;
+            setTimeout(() => {
+              this.scrollToBottom();
+            }, 300);
             console.log(mensajes);
           }
         });
