@@ -8,6 +8,7 @@ import { TareasHijosPage } from '../tareas-hijos/tareas-hijos.page';
 import { SoportePage } from '../../soporte/soporte.page';
 import { ChatPage } from '../chat/chat.page';
 import { ClasesReportesPage } from '../clases-reportes/clases-reportes.page';
+import { CalificacionesHijosPage } from '../calificaciones-hijos/calificaciones-hijos.page';
 
 @Component({
   selector: 'app-tab',
@@ -75,8 +76,11 @@ export class TabPage implements OnInit {
     await pagina.present();
   }
 
-  verNotas(){
-
+  async verNotas(){
+    const pagina = await this.modalCtrl.create({
+      component: CalificacionesHijosPage,
+    });
+    await pagina.present();
   }
 
   async verReportes(){

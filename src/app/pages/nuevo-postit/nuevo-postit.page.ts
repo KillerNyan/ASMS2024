@@ -98,32 +98,40 @@ export class NuevoPostitPage implements OnInit {
           if (this.archivos != 0) {
             //array con (nivel, grado,seccion,maestro,titulo,descripcion)
             this.data = [{nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join()}];
+            
             (await this.asmsSrvc.nuevoPostit(this.data)).subscribe(async (resp: any) => {
-              let codigo = resp.codigo;
-              //console.log('Inicia subida de Archivos');
-              const loading = await this.loadingCtrl.create({
-                message: 'Creando Post It',
-                duration: 500 + (700 * this.postitFiles.length),
-              });
-              loading.present();
-              for( let i = 0; i < this.postitFiles.length; i++ ){
-                let file = this.postitFiles[i];
-                let extension = file[1];
-                //console.log(extension);
-                if (extension == 'image/png' || extension == 'image/jpg' || extension == 'image/jpeg' || extension == 'image/bmp') {
-                  (await this.asmsSrvc.ImgsPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
-                    //console.log(resp2);
-                  });
-                } else {
-                  (await this.asmsSrvc.FilesPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
-                    //console.log(resp2);
-                  });
+              if (resp.status == true) {
+                let codigo = resp.codigo;
+                const loading = await this.loadingCtrl.create({
+                  message: 'Creando Post It',
+                  duration: 500 + (700 * this.postitFiles.length),
+                });
+                loading.present();
+                for( let i = 0; i < this.postitFiles.length; i++ ){
+                  let file = this.postitFiles[i];
+                  let extension = file[1];
+                  //console.log(extension);
+                  if (extension == 'image/png' || extension == 'image/jpg' || extension == 'image/jpeg' || extension == 'image/bmp') {
+                    (await this.asmsSrvc.ImgsPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
+                      if (resp2.status == true) {
+
+                      }
+                      //console.log(resp2);
+                    });
+                  } else {
+                    (await this.asmsSrvc.FilesPostit(codigo, extension, file[0])).subscribe((resp2: any) => {
+                      if (resp2.status == true) {
+                        
+                      }
+                      //console.log(resp2);
+                    });
+                  }
                 }
+                setTimeout(() => {
+                  this.modalCtrl.dismiss( null, 'confirm' );
+                  this.presentToast(resp.message, 'light');
+                }, 700 * this.postitFiles.length);
               }
-              setTimeout(() => {
-                this.modalCtrl.dismiss( null, 'confirm' );
-                this.presentToast(resp.message, 'light');
-              }, 700 * this.postitFiles.length);
             });
           } else {
             this.confirmAlert();
@@ -172,6 +180,7 @@ export class NuevoPostitPage implements OnInit {
         handler: async () => {
           //array con (nivel, grado,seccion,maestro,titulo,descripcion)
           this.data = [{nivel: this.nivel, grado: this.grado, seccion: this.seccion, maestro: this.codigoMaestro, titulo: this.titulo, descripcion: this.descripcion, target: this.seleccionados.join()}];
+          console.log(this.data);
           (await this.asmsSrvc.nuevoPostit(this.data)).subscribe(async (resp: any) => {
             const loading = await this.loadingCtrl.create({
               message: 'Creando Post It',

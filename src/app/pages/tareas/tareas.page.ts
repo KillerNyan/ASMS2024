@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AsmsServiceService } from 'src/app/services/asms-service.service';
 import { ModalController } from '@ionic/angular';
 import { MateriasPage } from '../materias/materias.page';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-tareas',
@@ -11,11 +12,18 @@ import { MateriasPage } from '../materias/materias.page';
 export class TareasPage implements OnInit {
 
   secciones: any[] = [];
+  @Input() imgAlumnos: string = '';
+  datosUsuario: any;
+  tipoUsuario: string = '';
+  codigo: string = ''; 
 
-  constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController ) { }
+  constructor( private asmsSrvc: AsmsServiceService, private modalCtrl: ModalController, private strg: Storage ) { }
 
   async ngOnInit() {
-    (await this.asmsSrvc.getSecciones()).subscribe(async (secciones: any) => {
+    this.datosUsuario = await this.strg.get('datos');
+    this.tipoUsuario = this.datosUsuario.tipo_usuario;
+    this.codigo = this.datosUsuario.tipo_codigo;
+    (await this.asmsSrvc.getSecciones(this.tipoUsuario, this.codigo)).subscribe(async (secciones: any) => {
       if(Object.prototype.toString.call(secciones) === '[object Array]'){
         this.secciones = secciones;
       }

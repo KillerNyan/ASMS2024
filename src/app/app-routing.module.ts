@@ -49,11 +49,6 @@ const routes: Routes = [
   },
   {
     canActivate: [GuardGuard],
-    path: 'reportes',
-    loadChildren: () => import('./pages/reportes/reportes.module').then( m => m.ReportesPageModule)
-  },
-  {
-    canActivate: [GuardGuard],
     path: 'soporte',
     loadChildren: () => import('./pages/soporte/soporte.module').then( m => m.SoportePageModule)
   },
@@ -185,7 +180,8 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },  {
+  },
+  {
     path: 'chat',
     loadChildren: () => import('./pages/padres/chat/chat.module').then( m => m.ChatPageModule)
   },
@@ -197,6 +193,22 @@ const routes: Routes = [
     path: 'clases-reportes',
     loadChildren: () => import('./pages/padres/clases-reportes/clases-reportes.module').then( m => m.ClasesReportesPageModule)
   },
+  {
+    path: 'reportes-secciones',
+    loadChildren: () => import('./pages/reportes-secciones/reportes-secciones.module').then( m => m.ReportesSeccionesPageModule)
+  },
+  {
+    path: 'notificaciones-hijos',
+    loadChildren: () => import('./pages/hijos/notificaciones-hijos/notificaciones-hijos.module').then( m => m.NotificacionesHijosPageModule)
+  },  {
+    path: 'calificaciones-hijos',
+    loadChildren: () => import('./pages/padres/calificaciones-hijos/calificaciones-hijos.module').then( m => m.CalificacionesHijosPageModule)
+  },
+  {
+    path: 'visor-pdf',
+    loadChildren: () => import('./pages/visor-pdf/visor-pdf.module').then( m => m.VisorPDFPageModule)
+  },
+
 
 
 
