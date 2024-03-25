@@ -21,6 +21,7 @@ export class CalificacionesListasPage implements OnInit {
   unidades: any[] = [];
   materias: any[] = [];
   abierto: boolean = false;
+  loading: boolean = true;
 
   constructor(private modalCtrl: ModalController, private asmsSrvc: AsmsServiceService) { }
 
@@ -28,12 +29,12 @@ export class CalificacionesListasPage implements OnInit {
     if (this.tipo == 0) {
       (await this.asmsSrvc.getUnidades(this.nivel, this.grado)).subscribe((resp: any) => {
         this.unidades = resp;
-        console.log(resp);
+        //console.log(resp);
       });
     } else if (this.tipo == 1) {
       (await this.asmsSrvc.getMateriasNotas(this.nivel, this.grado)).subscribe((resp: any) => {
         this.materias = resp;
-        console.log(resp);
+        //console.log(resp);
       });
     }
   }
@@ -43,7 +44,8 @@ export class CalificacionesListasPage implements OnInit {
       let unidad = pos;
       (await this.asmsSrvc.getUnidadesMaterias(this.nivel, this.grado, unidad, this.codigoHijo)).subscribe((resp: any) => {
         this.materias = resp;
-        console.log(resp);
+        this.loading = false;
+        //console.log(resp);
       });
       this.abierto = true;
     } else {

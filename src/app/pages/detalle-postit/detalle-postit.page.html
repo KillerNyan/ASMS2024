@@ -44,13 +44,13 @@
   <div class="ion-padding">
     <swiper-container>
       <swiper-slide *ngFor="let imagen of imagenes; let i = index">
-        <img src="{{ imagen.imagen_url }}" (click)="verImg(i)">
+        <img src="{{ imagen.imagen_url }}" (click)="verImg(i)" loading="lazy">
       </swiper-slide>
       <swiper-slide *ngFor="let archivo of archivos">
           <!-- <a href="{{ archivo.archivo_url }}" target="_blank">
             <ion-img src="{{ archivo.icono }}"></ion-img>
           </a> -->
-          <img src="{{ archivo.icono }}" (click)="verDocumento(archivo.archivo_url)">
+          <img src="{{ archivo.icono }}" (click)="verDocumento(archivo.archivo_url)" loading="lazy">
         </swiper-slide>
     </swiper-container>
   </div>

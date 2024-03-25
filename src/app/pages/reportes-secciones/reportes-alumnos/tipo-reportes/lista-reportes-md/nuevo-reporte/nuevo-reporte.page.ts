@@ -41,13 +41,13 @@ export class NuevoReportePage implements OnInit {
   constructor( private modalCtrl: ModalController, private toastCtrl: ToastController, private loadingCtrl: LoadingController, private asmsSrvc: AsmsServiceService, private strg: Storage ) { }
 
   async ngOnInit() {
-    console.log(this.nivel, this.grado, this.seccion, this.alumno);
+    //console.log(this.nivel, this.grado, this.seccion, this.alumno);
     let datosUsuario = await this.strg.get('datos');
     this.codigoMaestro = datosUsuario.codigo;
   }
 
   calificaciones(value: string) {
-    console.log(value);
+    //console.log(value);
     this.comportamiento = value;
   }
 
@@ -146,7 +146,7 @@ export class NuevoReportePage implements OnInit {
       });
     } else if (this.tipo === '10') {
       (await this.asmsSrvc.nuevoConducta([data])).subscribe(async (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         if (resp.status == 'success') {
           this.presentLoading('Creando Reporte');
           this.presentToast('Reporte creado satisfactoriamente', 'light');
@@ -163,7 +163,7 @@ export class NuevoReportePage implements OnInit {
     console.log(data);
     if (this.tipo === '7') {
       (await this.asmsSrvc.editarPanial([data])).subscribe(async (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         if (resp.status == 'success') {
           this.presentLoading('Modificando Reporte');
           this.presentToast('Reporte modificado satisfactoriamente', 'light');
@@ -196,7 +196,7 @@ export class NuevoReportePage implements OnInit {
       });
     } else if (this.tipo === '10') {
       (await this.asmsSrvc.editarConducta([data])).subscribe(async (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         if (resp.status == 'success') {
           this.presentLoading('Modificando Reporte');
           this.presentToast('Reporte modificado satisfactoriamente', 'light');

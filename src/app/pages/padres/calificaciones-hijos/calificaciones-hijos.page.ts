@@ -29,7 +29,7 @@ export class CalificacionesHijosPage implements OnInit {
     (await this.asmsSrvc.getHijosCalificaciones(this.tipoUsuario, this.codigoPadre)).subscribe((hijos: any) => {
       if(Object.prototype.toString.call(hijos) === '[object Array]'){
         this.hijos = hijos;
-        console.log(hijos);
+        //console.log(hijos);
       }
     })
   }
